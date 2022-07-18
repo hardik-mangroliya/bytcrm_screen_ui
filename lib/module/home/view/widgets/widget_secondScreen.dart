@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class SecondScreen extends StatefulWidget {
   const SecondScreen({Key? key}) : super(key: key);
@@ -30,7 +29,7 @@ class _SecondScreenState extends State<SecondScreen> {
               height: 33,
             ),
             const Padding(
-              padding: EdgeInsets.only(right: 200),
+              padding: const EdgeInsets.only(right: 250),
               child: Text("EMPLOYEMENT TIME"),
             ),
             const SizedBox(
@@ -80,11 +79,16 @@ class _SecondScreenState extends State<SecondScreen> {
             ),
             Row(
               children: const [
-                Text("WORKING HOURS PER DAY"),
-                SizedBox(width: 120),
-                Text(
-                  "2:30 hr",
-                  style: TextStyle(color: Colors.orange, fontSize: 14),
+                Expanded(
+                  child: Text("WORKING HOURS PER DAY"),
+                ),
+                // SizedBox(width: 125),
+                Padding(
+                  padding: EdgeInsets.only(right: 10),
+                  child: Text(
+                    "2:30 hr",
+                    style: TextStyle(color: Colors.orange, fontSize: 14),
+                  ),
                 ),
               ],
             ),

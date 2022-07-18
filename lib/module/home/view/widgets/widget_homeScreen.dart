@@ -183,35 +183,36 @@ class _InformationFormState extends State<InformationForm> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 10, bottom: 10),
+            padding:
+                const EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 10),
             child: Container(
-              width: 390,
+              width: double.infinity,
               height: 39,
               decoration: BoxDecoration(
                 color: Colors.blue[50],
                 border: Border.all(color: Colors.blue.shade50),
                 borderRadius: BorderRadius.circular(5),
               ),
-              child: Padding(
-                padding: const EdgeInsets.only(
-                  left: 10,
-                ),
-                child: Row(
-                  children: const [
-                    Text(
-                      "ADD MORE DETAIL",
-                      style: TextStyle(
-                          color: Colors.blue, fontWeight: FontWeight.bold),
+              child: Row(
+                children: const [
+                  Expanded(
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 10),
+                      child: Text(
+                        "ADD MORE DETAIL",
+                        style: TextStyle(
+                            color: Colors.blue, fontWeight: FontWeight.bold),
+                      ),
                     ),
-                    SizedBox(
-                      width: 228,
-                    ),
-                    Icon(
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    child: Icon(
                       Icons.lens_outlined,
                       color: Colors.blue,
-                    )
-                  ],
-                ),
+                    ),
+                  )
+                ],
               ),
             ),
           ),
