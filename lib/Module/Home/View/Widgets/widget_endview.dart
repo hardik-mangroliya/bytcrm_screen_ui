@@ -1,8 +1,7 @@
-import 'package:bytcrm_screen_ui/enum/enum.dart';
-import 'package:bytcrm_screen_ui/module/home/controller/controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/instance_manager.dart';
+import '../../../../Enum/enum.dart';
+import '../../Controller/controller.dart';
 
 class Endview extends StatefulWidget {
   const Endview({Key? key}) : super(key: key);
@@ -32,13 +31,13 @@ class _EndviewState extends State<Endview> {
                       break;
                     case Myenum.second:
                       homeScreenController.pageController.animateToPage(0,
-                          duration: Duration(milliseconds: 200),
+                          duration: const Duration(milliseconds: 200),
                           curve: Curves.easeIn);
                       homeScreenController.EmployeList.value = Myenum.first;
                       break;
-                    case Myenum.thered:
+                    case Myenum.third:
                       homeScreenController.pageController.animateToPage(1,
-                          duration: Duration(milliseconds: 200),
+                          duration: const Duration(milliseconds: 200),
                           curve: Curves.easeIn);
                       homeScreenController.EmployeList.value = Myenum.second;
                   }
@@ -52,14 +51,17 @@ class _EndviewState extends State<Endview> {
                       Radius.circular(5),
                     ),
                   ),
-                  child: const Center(
-                      child: Text(
-                    "CANCEL",
-                    style: TextStyle(
-                        color: Colors.grey,
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold),
-                  )),
+                  child: Center(
+                    child: Text(
+                      homeScreenController.EmployeList.value == Myenum.second
+                          ? "Back"
+                          : "CANCEL",
+                      style: const TextStyle(
+                          color: Colors.grey,
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
                 ),
               );
             },
@@ -83,9 +85,9 @@ class _EndviewState extends State<Endview> {
                       homeScreenController.pageController.animateToPage(2,
                           duration: const Duration(milliseconds: 200),
                           curve: Curves.easeInOut);
-                      homeScreenController.EmployeList.value = Myenum.thered;
+                      homeScreenController.EmployeList.value = Myenum.third;
                       break;
-                    case Myenum.thered:
+                    case Myenum.third:
                       Get.back();
                       break;
                   }
@@ -104,20 +106,22 @@ class _EndviewState extends State<Endview> {
                   child: Padding(
                     padding: const EdgeInsets.only(left: 18),
                     child: Row(
-                      children: const [
+                      children: [
                         Text(
-                          "NEXT",
-                          style: TextStyle(
+                          homeScreenController.EmployeList.value == Myenum.third
+                              ? "Save"
+                              : "NEXT",
+                          style: const TextStyle(
                               color: Colors.white,
                               fontSize: 14,
                               fontWeight: FontWeight.bold),
                         ),
-                        SizedBox(width: 5),
-                        Icon(
+                        const SizedBox(width: 5),
+                        const Icon(
                           Icons.arrow_forward_ios,
                           color: Colors.white,
                           size: 13,
-                        )
+                        ),
                       ],
                     ),
                   ),
