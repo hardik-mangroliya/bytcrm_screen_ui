@@ -14,7 +14,6 @@ class _InformationFormState extends State<InformationForm> {
   TextEditingController dateBirth = TextEditingController();
   TextEditingController dateAnniversary = TextEditingController();
 
-// ++++++++++++++++++++
   DateTime birthdate = DateTime.now();
   bool showBDate = false;
   Future<DateTime> _birthdate(BuildContext context) async {
@@ -36,7 +35,6 @@ class _InformationFormState extends State<InformationForm> {
     return DateFormat('MMM d, yyyy').format(birthdate);
   }
 
-  // ++++++++++++++++++
   DateTime annivesaryDate = DateTime.now();
   bool showDate = false;
   Future<DateTime> _annivesaryDate(BuildContext context) async {
@@ -57,7 +55,6 @@ class _InformationFormState extends State<InformationForm> {
   String getDate() {
     return DateFormat('MMM d, yyyy').format(annivesaryDate);
   }
-  // ++++++++++++++++++
 
   @override
   Widget build(BuildContext context) {
@@ -201,22 +198,6 @@ class _InformationFormState extends State<InformationForm> {
                       ),
                     ),
                   ),
-                  // TextFormField(
-                  //   controller: dateBirth,
-                  //   inputFormatters: [LengthLimitingTextInputFormatter(10)],
-                  //   keyboardType: TextInputType.number,
-                  //   decoration: const InputDecoration(
-                  //     suffixIcon: Icon(Icons.calendar_month),
-                  //     border: OutlineInputBorder(),
-                  //     hintText: "Birth Date",
-                  //     hintStyle: TextStyle(color: Colors.grey, fontSize: 14),
-                  //   ),
-                  //   onTap: () async {
-                  //     _selectDate(context);
-                  //     showDate = true;
-                  //     dateBirth.text = showDate ? getDate() : " ";
-                  //   },
-                  // ),
                 ),
               ),
               const SizedBox(width: 10),
@@ -247,22 +228,6 @@ class _InformationFormState extends State<InformationForm> {
                       ),
                     ),
                   ),
-                  // TextFormField(
-                  //   controller: dateAnniversary,
-                  //   inputFormatters: [LengthLimitingTextInputFormatter(10)],
-                  //   keyboardType: TextInputType.number,
-                  //   decoration: const InputDecoration(
-                  //     suffixIcon: Icon(Icons.calendar_month),
-                  //     border: OutlineInputBorder(),
-                  //     hintText: "Anniversary",
-                  //     hintStyle: TextStyle(color: Colors.grey, fontSize: 14),
-                  //   ),
-                  //   onTap: () async {
-                  //     _selectDate(context);
-                  //     showDate = true;
-                  //     dateAnniversary.text = showDate ? getDate() : " ";
-                  //   },
-                  // ),
                 ),
               ),
             ],
