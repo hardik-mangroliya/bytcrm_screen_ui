@@ -1,4 +1,3 @@
-import 'package:bytcrm_screen_ui/Module/Home/View/Widgets/widgets_personalDetails.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../Enum/enum.dart';
@@ -17,36 +16,6 @@ class _TopbarState extends State<Topbar> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(left: 35, right: 35, bottom: 5),
-      // child: Row(
-      //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //   children: [
-      //     PersonalDetails(
-      //       value: "Personal\nDetails",
-      //       text: "1",
-      //       isFirst: true,
-      //       isLast: false,
-      //       stepperStatus:
-      //           homeScreenController.personalDetailScreenStatus.value,
-      //     ),
-      //     PersonalDetails(
-      //       value: "Joining\nDetails",
-      //       text: "2",
-      //       isFirst: false,
-      //       isLast: false,
-      //       stepperStatus: homeScreenController.joiningDetailScreenStatus.value,
-      //     ),
-      //     PersonalDetails(
-      //       value: "Employee\nPermission",
-      //       text: "3",
-      //       isFirst: false,
-      //       isLast: true,
-      //       stepperStatus:
-      //           homeScreenController.employePermissionScreenStatus.value,
-      //     ),
-      // ++++++++++++++++++++++++++++++++++++
-
-      // ++++++++++++++++++++++++++++
-
       child: Obx(
         () => Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -119,10 +88,6 @@ class _TopbarState extends State<Topbar> {
                 ],
               ),
             ),
-            // ],
-
-            // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
             Expanded(
               child: Column(
                 children: [
@@ -215,7 +180,6 @@ class _TopbarState extends State<Topbar> {
                 ],
               ),
             ),
-            // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
             Expanded(
               child: Column(
                 children: [
@@ -299,15 +263,9 @@ class _TopbarState extends State<Topbar> {
                 ],
               ),
             ),
-            // ++++++++++++++++++++++++++++++++++++++++++++++
           ],
         ),
       ),
     );
-
-    //       );
-    //     ],
-    //   ),
-    // );
   }
 }
