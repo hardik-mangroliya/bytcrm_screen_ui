@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
+
+import '../../../../Core/common_function.dart';
 
 class InformationForm extends StatefulWidget {
   const InformationForm({Key? key}) : super(key: key);
@@ -7,9 +11,58 @@ class InformationForm extends StatefulWidget {
 }
 
 class _InformationFormState extends State<InformationForm> {
+  TextEditingController dateBirth = TextEditingController();
+  TextEditingController dateAnniversary = TextEditingController();
+
+// ++++++++++++++++++++
+  DateTime birthdate = DateTime.now();
+  bool showBDate = false;
+  Future<DateTime> _birthdate(BuildContext context) async {
+    final selecteBD = await showDatePicker(
+      context: context,
+      initialDate: birthdate,
+      firstDate: DateTime(1900),
+      lastDate: DateTime(2100),
+    );
+    if (selecteBD != null && selecteBD != birthdate) {
+      setState(() {
+        birthdate = selecteBD;
+      });
+    }
+    return birthdate;
+  }
+
+  String getBDate() {
+    return DateFormat('MMM d, yyyy').format(birthdate);
+  }
+
+  // ++++++++++++++++++
+  DateTime annivesaryDate = DateTime.now();
+  bool showDate = false;
+  Future<DateTime> _annivesaryDate(BuildContext context) async {
+    final selected = await showDatePicker(
+      context: context,
+      initialDate: annivesaryDate,
+      firstDate: DateTime(1900),
+      lastDate: DateTime(2100),
+    );
+    if (selected != null && selected != annivesaryDate) {
+      setState(() {
+        annivesaryDate = selected;
+      });
+    }
+    return annivesaryDate;
+  }
+
+  String getDate() {
+    return DateFormat('MMM d, yyyy').format(annivesaryDate);
+  }
+  // ++++++++++++++++++
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
+      keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
       child: Column(
         children: [
           SizedBox(
@@ -56,6 +109,8 @@ class _InformationFormState extends State<InformationForm> {
           Padding(
             padding: const EdgeInsets.only(left: 10, right: 10, top: 21),
             child: TextFormField(
+              keyboardType: TextInputType.text,
+              inputFormatters: [LengthLimitingTextInputFormatter(50)],
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 hintText: "Full Name*",
@@ -73,14 +128,15 @@ class _InformationFormState extends State<InformationForm> {
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.grey),
                     borderRadius: const BorderRadius.all(
-                      Radius.circular(8),
+                      Radius.circular(5),
                     ),
                   ),
                   child: const Center(
-                      child: Text(
-                    "+91",
-                    style: TextStyle(color: Colors.grey, fontSize: 14),
-                  )),
+                    child: Text(
+                      "+91",
+                      style: TextStyle(color: Colors.grey, fontSize: 14),
+                    ),
+                  ),
                 ),
               ),
               const SizedBox(
@@ -90,6 +146,8 @@ class _InformationFormState extends State<InformationForm> {
                 child: Padding(
                   padding: const EdgeInsets.only(right: 10, top: 10),
                   child: TextFormField(
+                    keyboardType: TextInputType.number,
+                    inputFormatters: [LengthLimitingTextInputFormatter(10)],
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
                       hintText: "Mobile Number*",
@@ -103,6 +161,7 @@ class _InformationFormState extends State<InformationForm> {
           Padding(
             padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
             child: TextFormField(
+              inputFormatters: [LengthLimitingTextInputFormatter(40)],
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 hintText: "Email ID*",
@@ -112,33 +171,100 @@ class _InformationFormState extends State<InformationForm> {
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
+            children: [
               Flexible(
                 child: Padding(
-                  padding: EdgeInsets.only(top: 10, left: 10),
-                  child: TextField(
-                    decoration: InputDecoration(
-                      suffixIcon: Icon(Icons.calendar_month),
-                      border: OutlineInputBorder(),
-                      hintText: "Birth Date",
-                      hintStyle: TextStyle(color: Colors.grey, fontSize: 14),
+                  padding: const EdgeInsets.only(top: 10, left: 10),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    width: 200,
+                    height: 58,
+                    decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey),
+                        borderRadius: BorderRadius.circular(5)),
+                    child: InkWell(
+                      onTap: () {
+                        _birthdate(context);
+                        showBDate = true;
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                          top: 20,
+                        ),
+                        child: showBDate
+                            ? Text(getBDate())
+                            : const Text(
+                                "Birthday ",
+                                style:
+                                    TextStyle(color: Colors.grey, fontSize: 14),
+                              ),
+                      ),
                     ),
                   ),
+                  // TextFormField(
+                  //   controller: dateBirth,
+                  //   inputFormatters: [LengthLimitingTextInputFormatter(10)],
+                  //   keyboardType: TextInputType.number,
+                  //   decoration: const InputDecoration(
+                  //     suffixIcon: Icon(Icons.calendar_month),
+                  //     border: OutlineInputBorder(),
+                  //     hintText: "Birth Date",
+                  //     hintStyle: TextStyle(color: Colors.grey, fontSize: 14),
+                  //   ),
+                  //   onTap: () async {
+                  //     _selectDate(context);
+                  //     showDate = true;
+                  //     dateBirth.text = showDate ? getDate() : " ";
+                  //   },
+                  // ),
                 ),
               ),
-              SizedBox(width: 10),
+              const SizedBox(width: 10),
               Flexible(
-                  child: Padding(
-                padding: EdgeInsets.only(top: 10, right: 10),
-                child: TextField(
-                  decoration: InputDecoration(
-                    suffixIcon: Icon(Icons.calendar_month),
-                    border: OutlineInputBorder(),
-                    hintText: "Anniversary",
-                    hintStyle: TextStyle(color: Colors.grey, fontSize: 14),
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 10, right: 10),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    width: 200,
+                    height: 58,
+                    decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey),
+                        borderRadius: BorderRadius.circular(5)),
+                    child: InkWell(
+                      onTap: () {
+                        _annivesaryDate(context);
+                        showDate = true;
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 20),
+                        child: showDate
+                            ? Text(getDate())
+                            : const Text(
+                                "Anniversary",
+                                style:
+                                    TextStyle(color: Colors.grey, fontSize: 14),
+                              ),
+                      ),
+                    ),
                   ),
+                  // TextFormField(
+                  //   controller: dateAnniversary,
+                  //   inputFormatters: [LengthLimitingTextInputFormatter(10)],
+                  //   keyboardType: TextInputType.number,
+                  //   decoration: const InputDecoration(
+                  //     suffixIcon: Icon(Icons.calendar_month),
+                  //     border: OutlineInputBorder(),
+                  //     hintText: "Anniversary",
+                  //     hintStyle: TextStyle(color: Colors.grey, fontSize: 14),
+                  //   ),
+                  //   onTap: () async {
+                  //     _selectDate(context);
+                  //     showDate = true;
+                  //     dateAnniversary.text = showDate ? getDate() : " ";
+                  //   },
+                  // ),
                 ),
-              ))
+              ),
             ],
           ),
           Row(
@@ -158,17 +284,18 @@ class _InformationFormState extends State<InformationForm> {
               ),
               SizedBox(width: 10),
               Flexible(
-                  child: Padding(
-                padding: EdgeInsets.only(top: 10, right: 10),
-                child: TextField(
-                  decoration: InputDecoration(
-                    suffixIcon: Icon(Icons.arrow_drop_down),
-                    border: OutlineInputBorder(),
-                    hintText: "Role*",
-                    hintStyle: TextStyle(color: Colors.grey, fontSize: 14),
+                child: Padding(
+                  padding: EdgeInsets.only(top: 10, right: 10),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      suffixIcon: Icon(Icons.arrow_drop_down),
+                      border: OutlineInputBorder(),
+                      hintText: "Role*",
+                      hintStyle: TextStyle(color: Colors.grey, fontSize: 14),
+                    ),
                   ),
                 ),
-              ))
+              )
             ],
           ),
           Padding(
@@ -211,7 +338,7 @@ class _InformationFormState extends State<InformationForm> {
                       Icons.lens_outlined,
                       color: Colors.blue,
                     ),
-                  )
+                  ),
                 ],
               ),
             ),

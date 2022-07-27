@@ -1,3 +1,4 @@
+import 'package:bytcrm_screen_ui/Module/Home/View/Widgets/widgets_personalDetails.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../Enum/enum.dart';
@@ -16,9 +17,39 @@ class _TopbarState extends State<Topbar> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(left: 35, right: 35, bottom: 5),
+      // child: Row(
+      //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      //   children: [
+      //     PersonalDetails(
+      //       value: "Personal\nDetails",
+      //       text: "1",
+      //       isFirst: true,
+      //       isLast: false,
+      //       stepperStatus:
+      //           homeScreenController.personalDetailScreenStatus.value,
+      //     ),
+      //     PersonalDetails(
+      //       value: "Joining\nDetails",
+      //       text: "2",
+      //       isFirst: false,
+      //       isLast: false,
+      //       stepperStatus: homeScreenController.joiningDetailScreenStatus.value,
+      //     ),
+      //     PersonalDetails(
+      //       value: "Employee\nPermission",
+      //       text: "3",
+      //       isFirst: false,
+      //       isLast: true,
+      //       stepperStatus:
+      //           homeScreenController.employePermissionScreenStatus.value,
+      //     ),
+      // ++++++++++++++++++++++++++++++++++++
+
+      // ++++++++++++++++++++++++++++
+
       child: Obx(
         () => Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Expanded(
               child: Column(
@@ -56,14 +87,11 @@ class _TopbarState extends State<Topbar> {
                                           Myenum.third
                                   ? Colors.green
                                   : Colors.blue),
-                          margin: const EdgeInsets.all(5),
-                          child: const Padding(
-                            padding: EdgeInsets.only(top: 0, left: 0),
-                            child: Icon(
-                              Icons.done_outlined,
-                              size: 20,
-                              color: Colors.white,
-                            ),
+                          margin: const EdgeInsets.all(4),
+                          child: const Icon(
+                            Icons.done_outlined,
+                            size: 20,
+                            color: Colors.white,
                           ),
                         ),
                       ),
@@ -79,7 +107,7 @@ class _TopbarState extends State<Topbar> {
                     ],
                   ),
                   Text(
-                    "Personal",
+                    "Personal\nDetails",
                     style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.bold,
@@ -88,19 +116,13 @@ class _TopbarState extends State<Topbar> {
                             ? Colors.black
                             : Colors.grey),
                   ),
-                  Text(
-                    "Details",
-                    style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold,
-                        color: homeScreenController.EmployeList.value ==
-                                Myenum.first
-                            ? Colors.black
-                            : Colors.grey),
-                  )
                 ],
               ),
             ),
+            // ],
+
+            // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
             Expanded(
               child: Column(
                 children: [
@@ -117,7 +139,10 @@ class _TopbarState extends State<Topbar> {
                       ),
                       Container(
                         height: 100,
-                        width: 50,
+                        width: homeScreenController.EmployeList.value ==
+                                Myenum.first
+                            ? 40
+                            : 50,
                         decoration: homeScreenController.EmployeList.value ==
                                     Myenum.second ||
                                 homeScreenController.EmployeList.value ==
@@ -136,7 +161,10 @@ class _TopbarState extends State<Topbar> {
                             : const BoxDecoration(),
                         child: Container(
                           height: 70,
-                          width: 32,
+                          width: homeScreenController.EmployeList.value ==
+                                  Myenum.first
+                              ? 70
+                              : 32,
                           decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               color: homeScreenController.EmployeList.value ==
@@ -153,7 +181,7 @@ class _TopbarState extends State<Topbar> {
                                 ? const Text(
                                     "2",
                                     style: TextStyle(
-                                        color: Colors.white, fontSize: 20),
+                                        color: Colors.white, fontSize: 17),
                                   )
                                 : const Icon(
                                     Icons.done_outlined,
@@ -164,17 +192,18 @@ class _TopbarState extends State<Topbar> {
                         ),
                       ),
                       Expanded(
-                          child: Divider(
-                        color: homeScreenController.EmployeList.value ==
-                                Myenum.third
-                            ? Colors.green
-                            : Colors.blue,
-                        thickness: 3,
-                      ))
+                        child: Divider(
+                          color: homeScreenController.EmployeList.value ==
+                                  Myenum.third
+                              ? Colors.green
+                              : Colors.blue,
+                          thickness: 3,
+                        ),
+                      ),
                     ],
                   ),
                   Text(
-                    "Joining",
+                    "Joining\nDetails",
                     style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.bold,
@@ -183,32 +212,29 @@ class _TopbarState extends State<Topbar> {
                             ? Colors.black
                             : Colors.grey),
                   ),
-                  Text(
-                    "Details",
-                    style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold,
-                        color: homeScreenController.EmployeList.value ==
-                                Myenum.second
-                            ? Colors.black
-                            : Colors.grey),
-                  )
                 ],
               ),
             ),
+            // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
             Expanded(
               child: Column(
                 children: [
                   Row(
                     children: [
                       const Expanded(
-                          child: Divider(
-                        color: Colors.blue,
-                        thickness: 3,
-                      )),
+                        child: Divider(
+                          color: Colors.blue,
+                          thickness: 3,
+                        ),
+                      ),
                       Container(
                         height: 100,
-                        width: 50,
+                        width: homeScreenController.EmployeList.value ==
+                                    Myenum.first ||
+                                homeScreenController.EmployeList.value ==
+                                    Myenum.second
+                            ? 40
+                            : 50,
                         decoration: homeScreenController.EmployeList.value ==
                                 Myenum.third
                             ? BoxDecoration(
@@ -221,13 +247,18 @@ class _TopbarState extends State<Topbar> {
                             : const BoxDecoration(),
                         child: Container(
                           height: 70,
-                          width: 32,
+                          width: homeScreenController.EmployeList.value ==
+                                      Myenum.first ||
+                                  homeScreenController.EmployeList.value ==
+                                      Myenum.second
+                              ? 70
+                              : 32,
                           decoration: const BoxDecoration(
                               shape: BoxShape.circle, color: Colors.blue),
                           margin: homeScreenController.EmployeList.value ==
                                   Myenum.third
                               ? const EdgeInsets.all(4)
-                              : EdgeInsets.all(0),
+                              : const EdgeInsets.all(0),
                           child: Center(
                             child: homeScreenController.EmployeList.value ==
                                         Myenum.first ||
@@ -236,11 +267,12 @@ class _TopbarState extends State<Topbar> {
                                 ? const Text(
                                     "3",
                                     style: TextStyle(
-                                        color: Colors.white, fontSize: 20),
+                                        color: Colors.white, fontSize: 17),
                                   )
                                 : const Icon(
                                     Icons.done,
                                     color: Colors.white,
+                                    size: 20,
                                   ),
                           ),
                         ),
@@ -250,34 +282,32 @@ class _TopbarState extends State<Topbar> {
                           color: Colors.white,
                           thickness: 5,
                         ),
-                      )
+                      ),
                     ],
                   ),
-                  Text("Employee",
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold,
-                        color: homeScreenController.EmployeList.value ==
-                                Myenum.third
-                            ? Colors.black
-                            : Colors.grey,
-                      )),
                   Text(
-                    "Permission",
+                    "Employee\nPermission",
                     style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold,
-                        color: homeScreenController.EmployeList.value ==
-                                Myenum.third
-                            ? Colors.black
-                            : Colors.grey),
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      color:
+                          homeScreenController.EmployeList.value == Myenum.third
+                              ? Colors.black
+                              : Colors.grey,
+                    ),
                   ),
                 ],
               ),
             ),
+            // ++++++++++++++++++++++++++++++++++++++++++++++
           ],
         ),
       ),
     );
+
+    //       );
+    //     ],
+    //   ),
+    // );
   }
 }

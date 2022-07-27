@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
+
+import '../../../../Core/common_function.dart';
 
 class SecondScreen extends StatefulWidget {
   const SecondScreen({Key? key}) : super(key: key);
@@ -7,29 +12,118 @@ class SecondScreen extends StatefulWidget {
 }
 
 class _SecondScreenState extends State<SecondScreen> {
+  TextEditingController dateJoin = TextEditingController();
   double _currentSliderValue = 5;
+
+// +++++++++++++++++++++++++++++
+  DateTime selectedDate = DateTime.now();
+  bool showDate = false;
+  Future<DateTime> _selectDate(BuildContext context) async {
+    final selected = await showDatePicker(
+      context: context,
+      initialDate: selectedDate,
+      firstDate: DateTime(1900),
+      lastDate: DateTime(2100),
+    );
+    if (selected != null && selected != selectedDate) {
+      setState(() {
+        selectedDate = selected;
+      });
+    }
+    return selectedDate;
+  }
+
+  String getDate() {
+    return DateFormat('MMM d, yyyy').format(selectedDate);
+  }
+
+// +++++++++++++++++++++++++++++
   @override
   Widget build(BuildContext context) {
+    // ++++++++++++++++++Second Screen Complete++++++++++++++++++++
     return Padding(
       padding: const EdgeInsets.only(left: 10, right: 10, top: 51),
       child: SingleChildScrollView(
+        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         child: Column(
           children: [
-            const TextField(
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: "Joining Date",
-                hintStyle: TextStyle(color: Colors.grey, fontSize: 14),
-                suffixIcon: Icon(
-                  Icons.calendar_month_outlined,
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              width: 400,
+              height: 48,
+              decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey),
+                  borderRadius: BorderRadius.circular(5)),
+              child: InkWell(
+                onTap: () {
+                  _selectDate(context);
+                  showDate = true;
+                },
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 15),
+                  child: showDate
+                      ? Text(getDate())
+                      : const Text(
+                          "Joining Date",
+                          style: TextStyle(color: Colors.grey),
+                        ),
                 ),
               ),
             ),
-            const SizedBox(
-              height: 33,
-            ),
+            // showDate ? Text(getDate()) : const SizedBox(),
+            // ],
+            // +++++++++++++++++++++++
+            // InkWell(
+            //   onTap: () {
+            //     _selectDate(context);
+            //     showDate = true;
+            //     // dateJoin.text = showDate ? getDate() : " ";
+            //   },
+            //   child: Container(
+            //     width: 250,
+            //     height: 45,
+            //     decoration:
+            //         BoxDecoration(border: Border.all(color: Colors.grey)),
+            //     child: const Text("Join Date"),
+
+            //   ),
+            //   // dateJoin.text = showDate ? getDate() : " ";
+            //   //  showDate ? Center(child: Text(getDate())) : const SizedBox(),
+            // ),
+            // ++++++++++++++++++++++
+            // TextFormField(
+            //   controller: dateJoin,
+            //   inputFormatters: [LengthLimitingTextInputFormatter(10)],
+            //   keyboardType: TextInputType.number,
+            //   decoration: const InputDecoration(
+            //     border: OutlineInputBorder(),
+            //     hintText: "Joining Date",
+            //     hintStyle: TextStyle(color: Colors.grey, fontSize: 14),
+            //     suffixIcon: Icon(
+            //       Icons.calendar_month_outlined,
+            //     ),
+            //   ),
+            //   onTap: () async {
+            //     _selectDate(context);
+            //     showDate = true;
+            //     // DateTime? date = DateTime(1900);
+            //     // FocusScope.of(context).requestFocus(new FocusNode());
+
+            //     // date = await showDatePicker(
+            //     //     context: context,
+            //     //     initialDate: DateTime.now(),
+            //     //     firstDate: DateTime(1900),
+            //     //     lastDate: DateTime(2100));
+            //     // // dateJoin.text = date!.toIso8601String();
+            //     dateJoin.text = showDate ? getDate() : " ";
+            //     // CommonFunction.dateFormatterChange(date ?? DateTime.now());
+            //   },
+            // ),
+            // const SizedBox(
+            //   height: 33,
+            // ),
             const Padding(
-              padding: const EdgeInsets.only(right: 250),
+              padding: EdgeInsets.only(right: 250, top: 20),
               child: Text("EMPLOYEMENT TIME"),
             ),
             const SizedBox(
@@ -40,10 +134,10 @@ class _SecondScreenState extends State<SecondScreen> {
                 Container(
                   width: 132.5,
                   height: 36,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Colors.blue,
-                    border: Border.all(color: Colors.blue),
-                    borderRadius: const BorderRadius.only(
+                    // border: Border.all(color: Colors.blue),
+                    borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(5),
                       bottomLeft: Radius.circular(5),
                     ),
@@ -67,10 +161,11 @@ class _SecondScreenState extends State<SecondScreen> {
                         bottomRight: Radius.circular(5)),
                   ),
                   child: const Center(
-                      child: Text(
-                    "Part Time",
-                    style: TextStyle(fontSize: 14),
-                  )),
+                    child: Text(
+                      "Part Time",
+                      style: TextStyle(fontSize: 14),
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -82,7 +177,6 @@ class _SecondScreenState extends State<SecondScreen> {
                 Expanded(
                   child: Text("WORKING HOURS PER DAY"),
                 ),
-                // SizedBox(width: 125),
                 Padding(
                   padding: EdgeInsets.only(right: 10),
                   child: Text(
@@ -114,3 +208,93 @@ class _SecondScreenState extends State<SecondScreen> {
     );
   }
 }
+// ===========================================  
+
+// ++++++++++Date+++++++++++++++++++
+
+// import 'package:flutter/material.dart';
+// import 'package:intl/intl.dart';
+
+// void main() {
+//   runApp(const MyApp());
+// }
+
+// class MyApp extends StatelessWidget {
+//   const MyApp({Key? key}) : super(key: key);
+
+// @override
+//   Widget build(BuildContext context) {
+//     return const MaterialApp(
+//       debugShowCheckedModeBanner: false,
+//       home: TextScreen(),
+//     );
+//   }
+// }
+
+// class TextScreen extends StatefulWidget {
+//   const TextScreen({
+//     Key? key,
+//   }) : super(key: key);
+
+//   @override
+//   State<TextScreen> createState() => _TextScreenState();
+// }
+
+// +++++++++++++++++++++++++++
+// class _TextScreenState extends State<TextScreen> {
+//   DateTime selectedDate = DateTime.now();
+//   bool showDate = false;
+//   Future<DateTime> _selectDate(BuildContext context) async {
+//     final selected = await showDatePicker(
+//       context: context,
+//       initialDate: selectedDate,
+//       firstDate: DateTime(1900),
+//       lastDate: DateTime(2100),
+//     );
+//     if (selected != null && selected != selectedDate) {
+//       setState(() {
+//         selectedDate = selected;
+//       });
+//     }
+//     return selectedDate;
+//   }
+
+//  String getDate() {
+//     if (selectedDate == null) {
+//       return 'select date';
+//     } else {
+//       return DateFormat('MMM d, yyyy').format(selectedDate);
+//     }
+//   }
+
+//  @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: const Text('Date Timer Picker'),
+//         centerTitle: true,
+//         backgroundColor: Colors.teal,
+//       ),
+//       body: Center(
+//         child: Column(
+//           crossAxisAlignment: CrossAxisAlignment.start,
+//           mainAxisAlignment: MainAxisAlignment.center,
+//           children: [
+//             Container(
+//               padding: const EdgeInsets.symmetric(horizontal: 15),
+//               width: double.infinity,
+//               child: ElevatedButton(
+//                 onPressed: () {
+//                   _selectDate(context);
+//                   showDate = true;
+//                 },
+//                 child: const Text('Date Picker'),
+//               ),
+//             ),
+//             showDate ? Center(child: Text(getDate())) : const SizedBox(),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
